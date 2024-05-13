@@ -50,6 +50,18 @@ module Core (
     integer j;
 
     always @(posedge clk) begin
+        if (is_legal) begin
+            is_legal <= 0;
+        end
+
+        if (change_row) begin
+            change_row <= 0;
+        end
+
+        if (valid) begin
+            valid <= 0;
+        end
+
         if ((rst && !done_rst) || do_rst) begin
             out_data <= 0;
             is_legal <= 0;
@@ -122,20 +134,6 @@ module Core (
                     do_rst <= 1;
                 end
             end
-        end
-    end
-
-    always @(negedge clk) begin
-        if (is_legal) begin
-            is_legal <= 0;
-        end
-
-        if (change_row) begin
-            change_row <= 0;
-        end
-
-        if (valid) begin
-            valid <= 0;
         end
     end
 
